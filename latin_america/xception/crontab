@@ -1,0 +1,7 @@
+# Minute Hour Day Month WeekDay Command
+SHELL=/bin/bash
+PATH=/usr/local/bin:/usr/bin:/bin
+
+# run every hour at minute 5
+5 * * * * /usr/local/bin/python /app/operational_forecast.py >> /var/log/operational_xception_latin_america_gsmap_now.log 2>&1
+

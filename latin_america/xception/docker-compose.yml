@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  nowcasting-latin-america-xception:
+    build: .
+    container_name: nowcasting-latin-america-xception
+    restart: unless-stopped
+    env_file:
+      - config.env
+
+    environment:
+      # usar UTC nas subpastas? (true/false)
+      - USE_UTC=false
+
+      # timezone do container (afeta cron e logs)
+      - TZ=America/Sao_Paulo
+
+    volumes:
+      # Saída exatamente no path do host (mesmo caminho no container)
+      - /dados/rainfall/ainpp/output/nowcasting:/nowcasting
+
+      # (opcional) Logs do cron no host
+      - /dados/rainfall/ainpp/output/nowcasting/logs:/var/log
+
+    # (opcional) verificação simples: cron em execução e script presente
+    healthcheck:
+      test: [ "CMD-SHELL", "pgrep cron >/dev/null 2>&1 && [ -f /app/operational_forecast.py ]" ]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
