@@ -1,12 +1,12 @@
 # AINPP Nowcasting Containers
 
-Repository containing source code for operationalizing precipitation forecasting in Latin America using multiple Docker containers for different regions and models, including Xception, developed as part of the Artificial Intelligence Nowcasting Pilot Project (AINPP).
-
-![AINPP-Nowcasting-Diagram](assets/AINPP_Architecture_Nowcasting.png)
+Repository containing source code for operationalizing precipitation nowcasting using multiple Docker containers for different regions and models, developed as part of the Artificial Intelligence Nowcasting Pilot Project (AINPP).
 
 ## Architecture Overview
 
-This repository implements a containerized nowcasting model service that processes meteorological data from both remote and local repositories to generate precipitation forecasts across different regions in Latin America.
+This repository implements a containerized nowcasting model service that processes meteorological data from both remote and local repositories to generate precipitation forecasts across different regions.
+
+![AINPP-Nowcasting-Diagram](assets/AINPP_Architecture_Nowcasting.png)
 
 ### System Components
 
@@ -46,6 +46,14 @@ cd ainpp/containers/nowcasting/<region-name>/<model-name>
 ```
 
 2. Configure environment variables in `config.env`
+```bash
+FTP_JAXA_HOST=hokusai.eorc.jaxa.jp
+FTP_JAXA_USER=<user-here>
+FTP_JAXA_PASSWORD=<password-here>
+OUTPUT_ROOT=/nowcasting/<region-name>/<model-name>
+CHECKPOINT_PATH=/app/<region-name>_<model-name>_gsmap_mvk.pth # model trained with GSMaP_MVK
+PANEL_BACKGROUND=/app/eo_base_2020_clean_3600x1800.png
+```
 
 3. Build and start the container:
 ```bash
@@ -89,7 +97,3 @@ ainpp/output/nowcasting/<region-name>/<model-name>/
 ## Support
 
 For questions and support regarding the Artificial Intelligence Nowcasting Pilot Project (AINPP), please refer to project documentation or contact the development team.
-
-## License
-
-[Add appropriate license information]
